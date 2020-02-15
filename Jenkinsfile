@@ -17,14 +17,14 @@ pipeline {
         
         stage('Build Docker Image'){
             steps{
-                sh "docker build . -t anilkumblepuli/vprofile2:${DOCKER_TAG}"
+                sh "docker build . -t anilkumblepuli/java2:${DOCKER_TAG}"
             }
         }
         stage('DockerHub Push'){
             steps{
                 withCredentials([string(credentialsId: 'dockerpasswD', variable: 'dockerpasswD')])   {
                     sh "docker login -u anilkumblepuli -p ${dockerpasswD}"
-                    sh "docker push anilkumblepuli/vprofile2:${DOCKER_TAG}"
+                    sh "docker push anilkumblepuli/java2:${DOCKER_TAG}"
                 }
             }
         }
@@ -33,12 +33,12 @@ pipeline {
                 sh "chmod +x changeTag.sh"
                 sh "./changeTag.sh ${DOCKER_TAG}"
                sshagent(['kops-machine2']) {
-                    sh "scp -o StrictHostKeyChecking=no services.yml node-app-pod.yml ubuntu@13.127.160.112:/home/ubuntu/"
+                    sh "scp -o StrictHostKeyChecking=no services.yml node-app-pod.yml ubuntu@52.66.211.130:/home/ubuntu/"
                     script{
                         try{
-                            sh "ssh ubuntu@52.66.160.84 kubectl apply -f ."
+                            sh "ssh ubuntu@52.66.211.130 kubectl apply -f ."
                         }catch(error){
-                            sh "ubuntu@52.66.160.84 kubectl create -f ."
+                            sh "ubuntu@52.66.211.130 kubectl create -f ."
                         }
                     }
                 }
