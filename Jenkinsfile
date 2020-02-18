@@ -6,7 +6,7 @@ pipeline {
     stages{
        stage('code cloning'){
          steps{
-            git 'https://github.com/anilkumarpuli/node-app.git'
+            git credentialsId: 'Git_Credentials', url: 'https://github.com/padhugitpractice/JenkinsDocker.git'
                }
            }
          stage('code build by maven'){
@@ -15,16 +15,16 @@ pipeline {
            }
           } 
         
-        stage('Build Docker Image'){
+        stage('Build Docker Image'){ 
             steps{
-                sh "docker build . -t anilkumblepuli/java2:${DOCKER_TAG}"
+                sh "docker build . -t  padhudockerpractice/dockerfile .'
             }
         }
         stage('DockerHub Push'){
             steps{
-                withCredentials([string(credentialsId: 'dockerpasswD', variable: 'dockerpasswD')])   {
-                    sh "docker login -u anilkumblepuli -p ${dockerpasswD}"
-                    sh "docker push anilkumblepuli/java2:${DOCKER_TAG}"
+                withCredentials([string(credentialsId: 'devvvs', variable: 'devvvs')])   {
+                    sh "docker login -u padhudockerpractice -p ${devvvs}"
+                    sh "docker push padhudockerpractice/dockerfile"
                 }
             }
         }
@@ -33,12 +33,12 @@ pipeline {
                 sh "chmod +x changeTag.sh"
                 sh "./changeTag.sh ${DOCKER_TAG}"
      sshagent(['kubernetes']) {
-    sh "scp -o StrictHostKeyChecking=no services.yml node-app-pod.yml ubuntu@52.66.211.130:/home/ubuntu/"
+    sh "scp -o StrictHostKeyChecking=no services.yml node-app-pod.yml ubuntu@:13.126.206.145 /home/ubuntu/"
                     script{
                         try{
-                            sh "ssh ubuntu@52.66.211.130 kubectl apply -f ."
+                            sh "ssh ubuntu@13.126.206.145 kubectl apply -f ."
                         }catch(error){
-                            sh "ubuntu@52.66.211.130 kubectl create -f ."
+                            sh "ubuntu@13.126.206.145 kubectl create -f ."
                         }
                     }
                 }
