@@ -32,13 +32,14 @@ pipeline {
             steps{
                 sh "sudo chmod +x changeTag.sh"
                 sh "./changeTag.sh ${DOCKER_TAG}"
-    sshagent(credentials: ['kubernetes'], ignoreMissing: true) {
+    sshagent(['kubernetes']) {
     sh "scp -o StrictHostKeyChecking=no services.yml node-app-pod.yml ubuntu@13.126.206.145 /home/ubuntu/"
                     script{
                         try{
                             sh "ssh ubuntu@13.126.206.145 kubectl apply -f ."
-                        }catch(error){
-                            sh "ubuntu@13.126.206.145 kubectl create -f ."
+                        }
+                        catch(error){
+                            sh "ssh ubuntu@13.126.206.145 kubectl create -f ."
                         }
                     }
                 }
