@@ -17,7 +17,7 @@ pipeline {
         
         stage('Build Docker Image'){ 
             steps{
-                sh "docker build . -t  padhudockerpractice/dockerfile .'
+                sh "docker build . -t  padhudockerpractice/dockerfile .${DOCKER_TAG}"
             }
         }
         stage('DockerHub Push'){
@@ -33,7 +33,7 @@ pipeline {
                 sh "chmod +x changeTag.sh"
                 sh "./changeTag.sh ${DOCKER_TAG}"
      sshagent(['kubernetes']) {
-    sh "scp -o StrictHostKeyChecking=no services.yml node-app-pod.yml ubuntu@:13.126.206.145 /home/ubuntu/"
+    sh "scp -o StrictHostKeyChecking=no services.yml node-app-pod.yml ubuntu@13.126.206.145 /home/ubuntu/"
                     script{
                         try{
                             sh "ssh ubuntu@13.126.206.145 kubectl apply -f ."
