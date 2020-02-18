@@ -17,7 +17,7 @@ pipeline {
         
         stage('Build Docker Image'){ 
             steps{
-                sh "docker build . -t  padhudockerpractice/dockerfile .${DOCKER_TAG}"
+                sh "docker build -t .  padhudockerpractice/dockerfile ${DOCKER_TAG}"
             }
         }
         stage('DockerHub Push'){
