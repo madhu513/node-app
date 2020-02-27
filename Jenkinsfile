@@ -20,7 +20,7 @@ pipeline {
         
         stage('Build Docker Image'){ 
             steps{
-                sh "docker build . -t padhudockerpractice/madhu:${DOCKER_TAG}"
+                sh "docker build . -t madhu309/madhu:${DOCKER_TAG}"
             }
         }
         stage('DockerHub Push'){
