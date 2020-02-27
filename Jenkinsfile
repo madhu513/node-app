@@ -20,14 +20,14 @@ pipeline {
         
         stage('Build Docker Image'){ 
             steps{
-                sh "docker build . -t padhudockerpractice/dockerfile:${DOCKER_TAG}"
+                sh "docker build . -t padhudockerpractice/madhu:${DOCKER_TAG}"
             }
         }
         stage('DockerHub Push'){
             steps{
                 withCredentials([string(credentialsId: 'devvvs', variable: 'devvvs')])   {
                     sh "docker login -u padhudockerpractice -p ${devvvs}"
-                    sh "docker push padhudockerpractice/dockerfile:${DOCKER_TAG}"
+                    sh "docker push padhudockerpractice/madhu:${DOCKER_TAG}"
                 }
             }
         }
