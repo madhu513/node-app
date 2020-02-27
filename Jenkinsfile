@@ -32,26 +32,11 @@ pipeline {
             }
         }
         stage('Deploy to k8s'){
-            steps{
-                sh "chmod +x changeTag.sh"
-                sh "./changeTag.sh ${DOCKER_TAG}"
-                sshagent(['kops-machine']) {
-                    sh "scp -o StrictHostKeyChecking=no services.yml node-app-pod.yml ubuntu@172.31.14.30:/home/ubuntu/"
-                    script{
-                        try{
-                            
-                            sh "ssh ubuntu@172.31.14.30 kubectl apply -f ."
-                        }catch(error){
-                            sh "ssh ubuntu@172.31.14.30 kubectl create -f ."
-                        }
-                    }
-                }
-            }
+                    kubernetsdeploy(
+                       configs: 'deployment',
+                        kubeconfigId: 'kubernetes_cluster',
+                        enableConfigSubstitution: true
+                    )
+        
+        
         }
-    }
-}
-
-def getDockerTag(){
-    def tag  = sh script: 'git rev-parse HEAD', returnStdout: true
-    return tag
-}
