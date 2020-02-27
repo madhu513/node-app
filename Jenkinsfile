@@ -32,11 +32,11 @@ pipeline {
             }
         }
         stage('Deploy to k8s'){
-                    kubernetsdeploy(
-                       configs: 'deployment',
-                        kubeconfigId: 'kubernetes_cluster',
-                        enableConfigSubstitution: true
+                     kubernetsdeploy(
+                     configs: 'deployment',
+                     kubeconfigId: 'kubernetes_cluster',
+                     enableConfigSubstitution: true
                     )
-        }
-    }
+             }
+       }
 }
