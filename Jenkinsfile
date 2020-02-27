@@ -4,7 +4,7 @@ pipeline {
         DOCKER_TAG = getDockerTag()
     }
     tools{
-        maven :maven
+        maven 'maven'
     }
     stages{
        stage('code cloning'){
