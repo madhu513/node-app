@@ -30,6 +30,5 @@ pipeline {
                     sh "docker push madhu309/madhu:${DOCKER_TAG}"
                }
              }
-            }
+          }
     }
-    
