@@ -25,9 +25,10 @@ pipeline {
         }
         stage('DockerHub Push'){
             steps{
-                withCredentials([string(credentialsId: 'devvvs', variable: 'devvvs')])   {
-                    sh "docker login -u padhudockerpractice -p ${devvvs}"
-                    sh "docker push padhudockerpractice/madhu:${DOCKER_TAG}"
+               withCredentials([string(credentialsId: 'docker', variable: 'docker')]) {
+                    }
+                    sh "docker login -u madhu309 -p ${docker}"
+                    sh "docker push madhu309/madhu:${DOCKER_TAG}"
                 }
             }
         }
