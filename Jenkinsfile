@@ -37,6 +37,5 @@ pipeline {
                         kubeconfigId: 'kubernetes_cluster',
                         enableConfigSubstitution: true
                     )
-        
-        
         }
+    }
