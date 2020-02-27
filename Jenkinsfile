@@ -31,7 +31,6 @@ pipeline {
                     sh "docker push madhu309/madhu:${DOCKER_TAG}"
                 }
             }
-        }
         stage('Deploy to k8s'){
             steps{
                 sh "chmod 777 changeTag.sh"
