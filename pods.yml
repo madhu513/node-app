@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: nodeapp2
+  name: madhu
   labels:
-    app: nodeapp2
+    app: madhu
 spec:
   containers:
-    - name: nodeapp3
-      image: madhuu309/madhu:tagVersion
+    - name: madhu
+      image: madhuu309/madhu:2ea5f10dbe6c56cad3
       ports:
         - containerPort: 8080
