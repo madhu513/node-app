@@ -1,2 +1,2 @@
 #!/bin/bash
-sed "s/tagVersion/$1/g" pods.yml > node-app-pod.yml
+sed "s/2ea5f10dbe6c56cad3/$1/g" pods.yml > node-app-pod.yml
