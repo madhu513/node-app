@@ -36,13 +36,13 @@ pipeline {
                 sh "chmod +x changeTag.sh"
                 sh "./changeTag.sh ${DOCKER_TAG}"
                 sshagent(['private-key']) {
-                    sh "scp -o StrictHostKeyChecking=no services.yml node-app-pod.yml ubuntu@:13.235.18.232 /home/ubuntu/"
+                    sh "scp -o StrictHostKeyChecking=no services.yml node-app-pod.yml ubuntu@:15.206.28.49 /home/ubuntu/"
                     script{
                         try{
                             
-                            sh "ssh ubuntu@13.235.18.232 kubectl apply -f ."
+                            sh "ssh ubuntu@15.206.28.49 kubectl apply -f ."
                         }catch(error){
-                            sh "ssh ubuntu@13.235.18.232 kubectl create -f ."
+                            sh "ssh ubuntu@15.206.28.49 kubectl create -f ."
                         }
                     }
                 }
