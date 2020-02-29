@@ -1,15 +1,13 @@
-### vi vprofile-app-nodeport.yml
-
 apiVersion: v1
 kind: Service
 metadata:
- name: madhu
+    name: vproapp-service
 spec:
-  ports:30001
-   - port: 
-     nodePort: 80
-     targetPort: 8080
-     protocol: TCP
-  selector:
-      app: madhu
-  type: LoadBalaner
+    ports:
+      - port: 30001
+        nodePort: 30001
+        targetPort: vproapp-port
+        protocol: TCP
+selector:
+    app: vproapp
+ type: NodePort
