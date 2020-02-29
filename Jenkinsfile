@@ -33,10 +33,10 @@ pipeline {
         }
         stage('Deploy to k8s'){
                      steps{
-                sh "chmod +x changeTag.sh"
+                sh "chmod 777 changeTag.sh"
                 sh "./changeTag.sh ${DOCKER_TAG}"
                 sshagent(['private-key']) {
-                    sh "scp -o StrictHostKeyChecking=no services.yml node-app-pod.yml ubuntu@:15.206.28.49 /home/ubuntu/"
+                    sh "scp -o StrictHostKeyChecking=no services.yml node-app-pod.yml ubuntu@:15.206.28.49/home/ubuntu/"
                     script{
                         try{
                             
